@@ -1,0 +1,36 @@
+.table {
+    margin: 5px;
+    border-spacing: 0 1px;
+    font-size: medium;
+    color:black;
+}
+
+.thead {
+    background-color: grey;
+    padding: 3px;
+}
+
+.tbody {
+    background-color: rgb(199, 194, 194);
+    padding: 3px;
+}
+
+.tbody tr:nth-child(2n) {
+    background-color: rgb(205, 205, 205);
+}
+
+.table td:nth-child(4),
+.table td:nth-child(5) {
+    text-align: center;
+}
+
+td {
+    min-width: 100px;
+    padding: 5px;
+}
+
+.flex-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
