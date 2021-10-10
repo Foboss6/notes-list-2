@@ -80,6 +80,26 @@ export const initialState = {
             dates: "",
         },
     },
+    summary: {
+        "Task": {
+            id: "Task",
+            cathegory: "Task",
+            active: 2,
+            archeved: 1,
+        },
+        "Idea": {
+            id: "Idea",
+            cathegory: "Idea",
+            active: 1,
+            archeved: 0,
+        },
+        "Random Thought": {
+            id: "Random Thought",
+            cathegory: "Random Thought",
+            active: 4,
+            archeved: 1,
+        },
+    }
 }
 
 export const searchRobots = (state=initialState, action={}) => {

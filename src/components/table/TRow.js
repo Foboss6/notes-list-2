@@ -16,7 +16,7 @@ const TRow = ({data, cellType}) => {
                 Object.values(data).map((el, i) => (                    
                     cellType === 'head' || cellType === 'th'
                     ?
-                        el.toLowerCase().includes('btn')
+                        typeof el === 'string' && el.toLowerCase().includes('btn')
                         ?
                             <th key={`th-${i}`} className="flex-box">
                             {
@@ -29,6 +29,7 @@ const TRow = ({data, cellType}) => {
                                         case 'deletebtn': return <DeleteBtn id={data.id}/>;
                                         case 'editbtn': return <EditBtn id={data.id}/>;
                                         case 'savebtn': return <SaveBtn id={data.id}/>;
+                                        default: return <></>;
                                     }
                                 })
                             }
@@ -38,7 +39,7 @@ const TRow = ({data, cellType}) => {
                     :
                         i
                         ?
-                            el.toLowerCase().includes('btn')
+                            typeof el === 'string' && el.toLowerCase().includes('btn')
                             ?
                                 <td key={`td-${i}`} className="flex-box">
                                 {
@@ -51,6 +52,7 @@ const TRow = ({data, cellType}) => {
                                             case 'deletebtn': return <DeleteBtn  theme='dark' id={data.id}/>;
                                             case 'editbtn': return <EditBtn  theme='dark' id={data.id}/>;
                                             case 'savebtn': return <SaveBtn  theme='dark' id={data.id}/>;
+                                            default: return <></>;
                                         }
                                     })
                                 }

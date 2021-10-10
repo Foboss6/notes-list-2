@@ -1,5 +1,6 @@
 .table {
-    margin: 5px;
+    table-layout: auto;
+    width: 100%;
     border-spacing: 0 1px;
     font-size: medium;
     color:black;
@@ -33,4 +34,9 @@ td {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#table-summary td:nth-child(2),
+#table-summary td:nth-child(3) {
+    text-align: center;
 }

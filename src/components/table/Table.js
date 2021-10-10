@@ -1,6 +1,4 @@
 import './table-style.css';
-
-import DeleteBtn from '../buttons/DeleteBtn';
 import TRow from './TRow';
 
 const Table = ({ id, head, body}) => {

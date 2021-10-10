@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 
 const App = (state) => {
   // const store = createStore(btnClickDelete, initialState);
-  console.log(state.notes);
+  console.log(state.summary);
 
   const handlerBtnClick = (event) => {
     console.log(event.target.id);
@@ -34,6 +34,11 @@ const App = (state) => {
           id='notes'
           head={{0: 'Cathegory', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates', 5: 'AddBtn CheckAllBtn DeleteBtn'}} 
           body={notesForTable}
+        />
+        <Table 
+          id='summary'
+          head={{0: 'Cathegory', 1: 'Active', 2: 'Archived'}} 
+          body={state.summary}
         />
         <Table 
           head={{0: 'Cathegory', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates'}}
