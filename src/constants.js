@@ -1,3 +1,6 @@
-export const CHANGE_SEARCH_FIELD = 'CANGE_SEARCH_FIELD';
-
+export const BTN_CLICK_ADD = 'BTN_CLICK_ADD';
+export const BTN_CLICK_CANCEL = 'BTN_CLICK_CANCEL';
+export const BTN_CLICK_CHECK = 'BTN_CLICK_CHECK';
 export const BTN_CLICK_DELETE = 'BTN_CLICK_DELETE';
+export const BTN_CLICK_EDIT = 'BTN_CLICK_EDIT';
+export const BTN_CLICK_SAVE = 'BTN_CLICK_SAVE';

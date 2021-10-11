@@ -1,9 +1,17 @@
-import { CHANGE_SEARCH_FIELD } from "./constants";
+import { BTN_CLICK_ADD } from "./constants";
+import { BTN_CLICK_CANCEL } from "./constants";
+import { BTN_CLICK_CHECK } from "./constants";
 import { BTN_CLICK_DELETE } from "./constants";
+import { BTN_CLICK_EDIT } from "./constants";
+import { BTN_CLICK_SAVE } from "./constants";
 
 export const initialState = {
-    searchField: 'hello',
+    btnClickAdd: '',
+    btnClickCheck: '',
+    btnClickCheckAll: '',
     btnClickDelete: '',
+    btnClickEdit: '',
+    btnClickSave: '',
     notes: {
         111: {
             id: 111,
@@ -85,36 +93,64 @@ export const initialState = {
             id: "Task",
             cathegory: "Task",
             active: 2,
-            archeved: 1,
+            archived: 1,
         },
         "Idea": {
             id: "Idea",
             cathegory: "Idea",
             active: 1,
-            archeved: 0,
+            archived: 0,
         },
         "Random Thought": {
             id: "Random Thought",
             cathegory: "Random Thought",
             active: 4,
-            archeved: 1,
+            archived: 1,
         },
-    }
-}
-
-export const searchRobots = (state=initialState, action={}) => {
-    switch(action.type) {
-        case CHANGE_SEARCH_FIELD :
-            return {...state, searchField: action.payload};
-        default:
-            return state;
     }
 }
 
 export const reducer = (state=initialState, action) => {
     switch(action.type) {
-        case BTN_CLICK_DELETE :
-            return {...state, btnClickDelete: action.payload};
+        case BTN_CLICK_ADD :
+            return {...state, btnClickAdd: action.payload};
+
+        case BTN_CLICK_CHECK : {
+            const keys = action.payload.split('-');
+            let newNotes = {...state.notes};
+            let newArchivedNotes = {};
+            let summary = {...state.summary};
+
+            if(keys.length === 3) {                
+                newArchivedNotes = {...state.archivedNotes, [newNotes[keys[2]].id]: {...newNotes[keys[2]]}};
+                summary[newNotes[keys[2]].cathegory].active--;
+                summary[newNotes[keys[2]].cathegory].archived++;
+                delete newNotes[keys[2]];
+            } else {
+                Object.values(newNotes).forEach((el) => {
+                    summary[el.cathegory].active--;
+                    summary[el.cathegory].archived++;
+                });
+                newArchivedNotes = {...state.archivedNotes, ...state.notes};
+                newNotes = {};
+            }
+
+            return {...state, btnClickCheck: action.payload, notes: newNotes, archivedNotes: newArchivedNotes};
+        }
+        
+        case BTN_CLICK_DELETE : {
+            const keys = action.payload.split('-');
+            let newNotes =  {};
+            
+            if(keys.length === 3) {
+                newNotes =  {...state.notes};
+                delete newNotes[keys[2]];
+            }
+            else newNotes = {};
+
+            return {...state, btnClickDelete: action.payload, notes: newNotes};
+        }
+        
         default:
             return state;
     }

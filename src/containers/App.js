@@ -1,23 +1,22 @@
 
 import './App.css';
 
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Table from '../components/table/Table';
 
-const mapStateToProps = (state) => {
-  return state;
-}
+// const mapStateToProps = (state) => {
+//   return state;
+// }
 
 const App = (state) => {
   // const store = createStore(btnClickDelete, initialState);
-  console.log(state.summary);
-
-  const handlerBtnClick = (event) => {
-    console.log(event.target.id);
-  }
+  const notes = useSelector(state => state.notes);
+  const archivedNotes = useSelector(state => state.archivedNotes);
+  const summary = useSelector(state => state.summary);
 
   let notesForTable = {};
-  Object.values(state.notes).forEach(el => {
+  Object.values(notes).forEach(el => {
     notesForTable = {
       ...notesForTable,
       [el.id]: {
@@ -38,15 +37,15 @@ const App = (state) => {
         <Table 
           id='summary'
           head={{0: 'Cathegory', 1: 'Active', 2: 'Archived'}} 
-          body={state.summary}
+          body={summary}
         />
         <Table 
           head={{0: 'Cathegory', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates'}}
-          body={state.archivedNotes}
+          body={archivedNotes}
         />
       </section>
     </main>
   );
 }
 
-export default connect(mapStateToProps)(App);
+export default App;
