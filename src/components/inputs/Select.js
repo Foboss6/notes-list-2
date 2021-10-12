@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { inputChange } from "../../actions";
 
-const Select = (id, value) => {
+const Select = ({id, value}) => {
     const dispatch = useDispatch();
     const elID = id ? `select-${id}` : 'select-'+Math.round(Math.random()*100);
     let selectedItem = value ? value : 'Task';

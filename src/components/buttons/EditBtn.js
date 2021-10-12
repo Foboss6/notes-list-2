@@ -1,14 +1,14 @@
 import './btn-style.css';
 import pencil from './icons/pencil.svg';
 import { useDispatch } from 'react-redux';
-import { btnClickDelete } from '../../actions';
+import { btnClickEdit } from '../../actions';
 
 const EditBtn = ({theme, onClick, id}) => {
     const dispatch = useDispatch();
     const btnID = `btn-edi${id ? 't-'+id : 't'}`;
     
     const handlerBtnClick = () => {
-        dispatch(btnClickDelete(btnID));
+        dispatch(btnClickEdit(btnID));
     }
     
     return (

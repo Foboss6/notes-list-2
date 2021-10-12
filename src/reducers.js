@@ -124,6 +124,7 @@ export const initialState = {
         },
     },
     showArhivedNotes: false,
+    workingWithNotes: false,
 }
 
 const newNoteForm = {
@@ -134,8 +135,8 @@ const newNoteForm = {
         <Input id='new-name' placeholder='name' />,
     content: 
         <Input id='new-content' placeholder='note' />,
-        created: '',
-        dates: '',
+    created: '',
+    dates: '',
 };
 
 export const reducer = (state=initialState, action) => {
@@ -149,7 +150,12 @@ export const reducer = (state=initialState, action) => {
         
         case BTN_CLICK_ADD :
             
-            return {
+            if(state.workingWithNotes) {
+                return {
+                    ...state, 
+                    btnClickAdd: action.payload,
+                }
+            } else return {
                 ...state, 
                 btnClickAdd: action.payload,
                 notes: {
@@ -158,7 +164,55 @@ export const reducer = (state=initialState, action) => {
                         ...newNoteForm,
                     }
                 },
+                workingWithNotes: true,
             }
+
+        case BTN_CLICK_EDIT : {
+            const keys = action.payload.split('-');
+            
+            if(!state.workingWithNotes && state.notes[keys[2]]) {
+                return {
+                    ...state,
+                    btnClickEdit: action.payload,
+                    notes: {
+                        ...state.notes,
+                        [keys[2]]: {
+                            id: state.notes[keys[2]].id+'-edit',
+                            cathegory: 
+                                <Select id='edit' value={state.notes[keys[2]].cathegory}/>,
+                            name: 
+                                <Input id='edit-name' placeholder='name' value={state.notes[keys[2]].name} />,
+                            content: 
+                                <Input id='edit-content' placeholder='note' value={state.notes[keys[2]].content}/>,
+                            created: '',
+                            dates: '',
+                        },
+                    },
+                    inputs: {
+                        'select-new-cathegory': {
+                            id: 'cathegory',
+                            value: state.notes[keys[2]].cathegory,
+                        },
+                        'input-edit-name': {
+                            id: 'name',
+                            value: state.notes[keys[2]].name,
+                        },
+                        'input-edit-content': {
+                            id: 'content',
+                            value: state.notes[keys[2]].content,
+                        },
+                        created: state.notes[keys[2]].created,
+                        // dates: state.notes[keys[2]].dates,
+                    },
+                    workingWithNotes: true,
+                }
+            } else {
+                return {
+                    ...state,
+                    btnClickEdit: action.payload,
+                }
+            }
+        }
 
         case BTN_CLICK_SAVE :
             let newNote = {};
@@ -189,14 +243,27 @@ export const reducer = (state=initialState, action) => {
                     content: state.inputs['input-new-content'].value,
                     created: `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`,
                     dates: dates.length>1 ? dates.reduce((prev, cur) => prev + ", " + cur) : dates,
-                }
-            }
+                };
 
+            } else if(action.payload.includes('edit')) {
+                const editedDates = [...state.inputs['input-edit-content'].value.matchAll(/\d{1,2}\/\d{1,2}\/\d{2,4}/g)];
+                newNote = {
+                    id: action.payload.split('-')[2],
+                    cathegory: state.inputs['select-new-cathegory'].value,
+                    name: state.inputs['input-edit-name'] ? state.inputs['input-edit-name'].value : '',
+                    content: state.inputs['input-edit-content'].value,
+                    created: state.inputs.created,
+                    dates: editedDates.length>1 ? editedDates.reduce((prev, cur) => prev + ", " + cur) : editedDates,
+                };
+
+            }
+            
             updatedNotes = {
                 ...state.notes,
                 [newNote.id]: newNote,
-            }
-            delete updatedNotes.new;
+            };
+
+            if(updatedNotes.new) delete updatedNotes.new;
 
             return {
                 ...state,
@@ -212,6 +279,7 @@ export const reducer = (state=initialState, action) => {
                     }
                 },
                 inputs: defaultInputs,
+                workingWithNotes: false,
             }
 
         case BTN_CLICK_CANCEL : {
@@ -226,6 +294,7 @@ export const reducer = (state=initialState, action) => {
                 btnClickCancel: action.payload,
                 notes: updatedNotes,
                 inputs: defaultInputs,
+                workingWithNotes: false,
             }
         }
 
@@ -260,17 +329,49 @@ export const reducer = (state=initialState, action) => {
         case BTN_CLICK_DELETE : {
             const keys = action.payload.split('-');
             let newNotes =  {};
+            let updatedSummary = {...state.summary};
             
             if(keys.length === 3) {
                 newNotes =  {...state.notes};
+                updatedSummary = {
+                    ...state.summary,
+                    [newNotes[keys[2]].cathegory]: {
+                        id: newNotes[keys[2]].cathegory,
+                        cathegory: newNotes[keys[2]].cathegory,
+                        active: state.summary[newNotes[keys[2]].cathegory].active-1,
+                        archived: state.summary[newNotes[keys[2]].cathegory].archived,
+                    }
+                }
                 delete newNotes[keys[2]];
             }
-            else newNotes = {};
+            else {
+                updatedSummary = {
+                    "Task": {
+                        id: "Task",
+                        cathegory: "Task",
+                        active: 0,
+                        archived: state.summary['Task'].archived,
+                    },
+                    "Idea": {
+                        id: "Idea",
+                        cathegory: "Idea",
+                        active: 0,
+                        archived: state.summary['Idea'].archived,
+                    },
+                    "Random Thought": {
+                        id: "Random Thought",
+                        cathegory: "Random Thought",
+                        active: 0,
+                        archived: state.summary['Random Thought'].archived,
+                    },
+                }
+            };
 
             return {
                 ...state, 
                 btnClickDelete: action.payload, 
-                notes: newNotes
+                notes: newNotes,
+                summary: updatedSummary,
             }
         }
 
@@ -283,9 +384,6 @@ export const reducer = (state=initialState, action) => {
                     [action.payload.id]: {
                         id: action.payload.id.split('-')[2],
                         value: action.payload.value,
-                            // state.inputs[action.payload.id]?.value 
-                            // ? state.inputs[action.payload.id].value + action.payload.value 
-                            // : action.payload.value,
                     }
                 }
             };

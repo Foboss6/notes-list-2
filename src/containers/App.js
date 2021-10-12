@@ -23,7 +23,7 @@ const App = (state) => {
       ...notesForTable,
       [el.id]: {
         ...el,
-        zbuttons: el.id.toString().includes('new') ? 'savebtn cancelbtn' : 'checkbtn editbtn deletebtn',
+        zbuttons: (el.id.toString().includes('new')  || el.id.toString().includes('edit')) ? 'savebtn cancelbtn' : 'checkbtn editbtn deletebtn',
       }
     }
   });
