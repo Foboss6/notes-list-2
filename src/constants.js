@@ -1,3 +1,4 @@
+export const BTN_CLICK = 'BTN_CLICK';
 export const BTN_CLICK_ADD = 'BTN_CLICK_ADD';
 export const BTN_CLICK_CANCEL = 'BTN_CLICK_CANCEL';
 export const BTN_CLICK_CHECK = 'BTN_CLICK_CHECK';

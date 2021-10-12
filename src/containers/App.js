@@ -4,6 +4,7 @@ import './App.css';
 // import { connect } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Table from '../components/table/Table';
+import Button from '../components/buttons/Button';
 
 // const mapStateToProps = (state) => {
 //   return state;
@@ -14,7 +15,7 @@ const App = (state) => {
   const notes = useSelector(state => state.notes);
   const archivedNotes = useSelector(state => state.archivedNotes);
   const summary = useSelector(state => state.summary);
-  const el = useSelector(state => state.htmlElement);
+  const showArhivedNotes = useSelector(state => state.showArhivedNotes);
 
   let notesForTable = {};
   Object.values(notes).forEach(el => {
@@ -40,11 +41,17 @@ const App = (state) => {
           head={{0: 'Cathegory', 1: 'Active', 2: 'Archived'}} 
           body={summary}
         />
-        {el}
-        <Table 
-          head={{0: 'Cathegory', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates'}}
-          body={archivedNotes}
-        />
+        <Button id='btn-show'>{showArhivedNotes ? 'Hide Archive' : 'Show Archive'}</Button>
+        {
+          showArhivedNotes
+          ?
+            <Table 
+            head={{0: 'Cathegory', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates'}}
+            body={archivedNotes}
+            />
+          :
+            <></>
+        }
       </section>
     </main>
   );

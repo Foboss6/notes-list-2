@@ -1,3 +1,4 @@
+import { BTN_CLICK } from "./constants";
 import { BTN_CLICK_ADD } from "./constants";
 import { BTN_CLICK_CANCEL } from "./constants";
 import { BTN_CLICK_CHECK } from "./constants";
@@ -10,19 +11,22 @@ import { INPUT_CHANGE } from "./constants";
 import Select from "./components/inputs/Select";
 import Input from "./components/inputs/Input";
 
+
+const defaultInputs = {
+    'select-new-cathegory': {
+        id: 'cathegory',
+        value: 'Task',
+    },
+}
+
 export const initialState = {
     btnClickAdd: '',
     btnClickCheck: '',
-    btnClickCheckAll: '',
+    btnClickCancel: '',
     btnClickDelete: '',
     btnClickEdit: '',
     btnClickSave: '',
-    inputs: {
-        'select-new-cathegory': {
-            id: 'cathegory',
-            value: 'Task',
-        },
-    },
+    inputs: defaultInputs,
     notes: {
         111: {
             id: 111,
@@ -119,7 +123,7 @@ export const initialState = {
             archived: 1,
         },
     },
-    message: '',
+    showArhivedNotes: false,
 }
 
 const newNoteForm = {
@@ -136,6 +140,13 @@ const newNoteForm = {
 
 export const reducer = (state=initialState, action) => {
     switch(action.type) {
+        case BTN_CLICK : {
+            return {
+                ...state,
+                showArhivedNotes: !state.showArhivedNotes,
+            }
+        }
+        
         case BTN_CLICK_ADD :
             
             return {
@@ -147,11 +158,11 @@ export const reducer = (state=initialState, action) => {
                         ...newNoteForm,
                     }
                 },
-            };
+            }
 
         case BTN_CLICK_SAVE :
             let newNote = {};
-            let modifiedNotes = {};
+            let updatedNotes = {};
             const date = new Date();
             const dates = state.inputs['input-new-content'] ? [...state.inputs['input-new-content'].value.matchAll(/\d{1,2}\/\d{1,2}\/\d{2,4}/g)] : [];
 
@@ -181,17 +192,42 @@ export const reducer = (state=initialState, action) => {
                 }
             }
 
-            modifiedNotes = {
+            updatedNotes = {
                 ...state.notes,
                 [newNote.id]: newNote,
             }
-            delete modifiedNotes.new;
-            
+            delete updatedNotes.new;
+
             return {
                 ...state,
                 btnClickSave: action.payload,
-                notes: modifiedNotes,
+                notes: updatedNotes,
+                summary: {
+                    ...state.summary,
+                    [newNote.cathegory]: {
+                        id: newNote.cathegory,
+                        cathegory: newNote.cathegory,
+                        active: state.summary[newNote.cathegory].active+1,
+                        archived: state.summary[newNote.cathegory].archived,
+                    }
+                },
+                inputs: defaultInputs,
             }
+
+        case BTN_CLICK_CANCEL : {
+            let updatedNotes = {...state.notes};
+            
+            if(action.payload.includes('new')) {
+                delete updatedNotes.new;
+            }
+            
+            return {
+                ...state,
+                btnClickCancel: action.payload,
+                notes: updatedNotes,
+                inputs: defaultInputs,
+            }
+        }
 
         case BTN_CLICK_CHECK : {
             const keys = action.payload.split('-');
@@ -213,7 +249,12 @@ export const reducer = (state=initialState, action) => {
                 newNotes = {};
             }
 
-            return {...state, btnClickCheck: action.payload, notes: newNotes, archivedNotes: newArchivedNotes};
+            return {
+                ...state, 
+                btnClickCheck: action.payload, 
+                notes: newNotes, 
+                archivedNotes: newArchivedNotes,
+            }
         }
         
         case BTN_CLICK_DELETE : {
@@ -226,7 +267,11 @@ export const reducer = (state=initialState, action) => {
             }
             else newNotes = {};
 
-            return {...state, btnClickDelete: action.payload, notes: newNotes};
+            return {
+                ...state, 
+                btnClickDelete: action.payload, 
+                notes: newNotes
+            }
         }
 
         case INPUT_CHANGE:
