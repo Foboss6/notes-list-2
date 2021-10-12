@@ -5,6 +5,11 @@ import { BTN_CLICK_DELETE } from "./constants";
 import { BTN_CLICK_EDIT } from "./constants";
 import { BTN_CLICK_SAVE } from "./constants";
 
+import { INPUT_CHANGE } from "./constants";
+
+import Select from "./components/inputs/Select";
+import Input from "./components/inputs/Input";
+
 export const initialState = {
     btnClickAdd: '',
     btnClickCheck: '',
@@ -12,6 +17,12 @@ export const initialState = {
     btnClickDelete: '',
     btnClickEdit: '',
     btnClickSave: '',
+    inputs: {
+        'select-new-cathegory': {
+            id: 'cathegory',
+            value: 'Task',
+        },
+    },
     notes: {
         111: {
             id: 111,
@@ -107,13 +118,80 @@ export const initialState = {
             active: 4,
             archived: 1,
         },
-    }
+    },
+    message: '',
 }
+
+const newNoteForm = {
+    id: 'new', 
+    cathegory: 
+        <Select id='new'/>,
+    name: 
+        <Input id='new-name' placeholder='name' />,
+    content: 
+        <Input id='new-content' placeholder='note' />,
+        created: '',
+        dates: '',
+};
 
 export const reducer = (state=initialState, action) => {
     switch(action.type) {
         case BTN_CLICK_ADD :
-            return {...state, btnClickAdd: action.payload};
+            
+            return {
+                ...state, 
+                btnClickAdd: action.payload,
+                notes: {
+                    ...state.notes,
+                    [newNoteForm.id]: {
+                        ...newNoteForm,
+                    }
+                },
+            };
+
+        case BTN_CLICK_SAVE :
+            let newNote = {};
+            let modifiedNotes = {};
+            const date = new Date();
+            const dates = state.inputs['input-new-content'] ? [...state.inputs['input-new-content'].value.matchAll(/\d{1,2}\/\d{1,2}\/\d{2,4}/g)] : [];
+
+            if(action.payload.includes('new')) {
+                // check the content field, it must be not empty
+                if(!state.inputs['input-new-content']) {
+                    return {
+                        ...state,
+                        btnClickSave: action.payload,
+                        notes: {
+                            ...state.notes,
+                            new: {
+                                ...state.notes.new,
+                                content: <Input id='new-content' placeholder='The note cannot be empty' />,
+                            }
+                        }
+                    }
+                }
+
+                newNote = {
+                    id: Date.now(),
+                    cathegory: state.inputs['select-new-cathegory'].value,
+                    name: state.inputs['input-new-name'] ? state.inputs['input-new-name'].value : '',
+                    content: state.inputs['input-new-content'].value,
+                    created: `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`,
+                    dates: dates.length>1 ? dates.reduce((prev, cur) => prev + ", " + cur) : dates,
+                }
+            }
+
+            modifiedNotes = {
+                ...state.notes,
+                [newNote.id]: newNote,
+            }
+            delete modifiedNotes.new;
+            
+            return {
+                ...state,
+                btnClickSave: action.payload,
+                notes: modifiedNotes,
+            }
 
         case BTN_CLICK_CHECK : {
             const keys = action.payload.split('-');
@@ -150,6 +228,22 @@ export const reducer = (state=initialState, action) => {
 
             return {...state, btnClickDelete: action.payload, notes: newNotes};
         }
+
+        case INPUT_CHANGE:
+
+            return {
+                ...state, 
+                inputs: {
+                    ...state.inputs,
+                    [action.payload.id]: {
+                        id: action.payload.id.split('-')[2],
+                        value: action.payload.value,
+                            // state.inputs[action.payload.id]?.value 
+                            // ? state.inputs[action.payload.id].value + action.payload.value 
+                            // : action.payload.value,
+                    }
+                }
+            };
         
         default:
             return state;

@@ -14,6 +14,7 @@ const App = (state) => {
   const notes = useSelector(state => state.notes);
   const archivedNotes = useSelector(state => state.archivedNotes);
   const summary = useSelector(state => state.summary);
+  const el = useSelector(state => state.htmlElement);
 
   let notesForTable = {};
   Object.values(notes).forEach(el => {
@@ -21,7 +22,7 @@ const App = (state) => {
       ...notesForTable,
       [el.id]: {
         ...el,
-        zbuttons: 'checkbtn editbtn deletebtn',
+        zbuttons: el.id.toString().includes('new') ? 'savebtn cancelbtn' : 'checkbtn editbtn deletebtn',
       }
     }
   });
@@ -39,6 +40,7 @@ const App = (state) => {
           head={{0: 'Cathegory', 1: 'Active', 2: 'Archived'}} 
           body={summary}
         />
+        {el}
         <Table 
           head={{0: 'Cathegory', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates'}}
           body={archivedNotes}

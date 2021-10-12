@@ -4,6 +4,7 @@ import { BTN_CLICK_CHECK } from "./constants";
 import { BTN_CLICK_DELETE } from "./constants";
 import { BTN_CLICK_EDIT } from "./constants";
 import { BTN_CLICK_SAVE } from "./constants";
+import { INPUT_CHANGE } from "./constants";
 
 export const btnClickAdd = (id) => ({
     type: BTN_CLICK_ADD,
@@ -33,4 +34,12 @@ export const btnClickEdit = (id) => ({
 export const btnClickSave = (id) => ({
     type: BTN_CLICK_SAVE,
     payload: id 
+});
+
+export const inputChange = (id, value) => ({
+    type: INPUT_CHANGE,
+    payload: {
+        id,
+        value,
+    }
 });

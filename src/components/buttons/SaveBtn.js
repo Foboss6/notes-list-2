@@ -1,14 +1,14 @@
 import './btn-style.css';
 import save from './icons/save.svg';
 import { useDispatch } from 'react-redux';
-import { btnClickDelete } from '../../actions';
+import { btnClickSave } from '../../actions';
 
 const SaveBtn = ({theme, onClick, id}) => {
     const dispatch = useDispatch();
     const btnID = `btn-sav${id ? 'e-'+id : 'e'}`;
     
     const handlerBtnClick = () => {
-        dispatch(btnClickDelete(btnID));
+        dispatch(btnClickSave(btnID));
     }
     
     return (
