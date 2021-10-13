@@ -3,7 +3,7 @@ import cancel from './icons/cancel.svg';
 import { useDispatch } from 'react-redux';
 import { btnClickCancel } from '../../actions';
 
-const CancelBtn = ({theme, onClick, id}) => {
+const CancelBtn = ({theme, onClick, id, key}) => {
     const dispatch = useDispatch();
     const btnID = `btn-cance${id ? 'l-'+id : 'l'}`;
     

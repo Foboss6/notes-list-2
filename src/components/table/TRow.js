@@ -22,13 +22,13 @@ const TRow = ({data, cellType}) => {
                             {
                                 el.toLowerCase().split(' ').map((b) => {
                                     switch(b) {
-                                        case 'addbtn': return <AddBtn id={data.id}/>;
-                                        case 'cancelbtn': return <CancelBtn id={data.id}/>;
-                                        case 'checkallbtn': return <CheckAllBtn id={data.id}/>;
-                                        case 'checkbtn': return <CheckBtn id={data.id}/>;
-                                        case 'deletebtn': return <DeleteBtn id={data.id}/>;
-                                        case 'editbtn': return <EditBtn id={data.id}/>;
-                                        case 'savebtn': return <SaveBtn id={data.id}/>;
+                                        case 'addbtn': return <AddBtn id={data.id} />;
+                                        case 'cancelbtn': return <CancelBtn id={data.id} />;
+                                        case 'checkallbtn': return <CheckAllBtn id={data.id} />;
+                                        case 'checkbtn': return <CheckBtn id={data.id} />;
+                                        case 'deletebtn': return <DeleteBtn id={data.id} />;
+                                        case 'editbtn': return <EditBtn id={data.id} />;
+                                        case 'savebtn': return <SaveBtn id={data.id} />;
                                         default: return <></>;
                                     }
                                 })
@@ -45,13 +45,13 @@ const TRow = ({data, cellType}) => {
                                 {
                                     el.toLowerCase().split(' ').map((b) => {
                                         switch(b) {
-                                            case 'addbtn': return <AddBtn theme='dark' id={data.id}/>;
-                                            case 'cancelbtn': return <CancelBtn  theme='dark' id={data.id}/>;
-                                            case 'checkallbtn': return <CheckAllBtn  theme='dark' id={data.id}/>;
-                                            case 'checkbtn': return <CheckBtn  theme='dark' id={data.id}/>;
-                                            case 'deletebtn': return <DeleteBtn  theme='dark' id={data.id}/>;
-                                            case 'editbtn': return <EditBtn  theme='dark' id={data.id}/>;
-                                            case 'savebtn': return <SaveBtn  theme='dark' id={data.id}/>;
+                                            case 'addbtn': return <AddBtn theme='dark' id={data.id} />;
+                                        case 'cancelbtn': return <CancelBtn theme='dark' id={data.id} />;
+                                        case 'checkallbtn': return <CheckAllBtn theme='dark' id={data.id} />;
+                                        case 'checkbtn': return <CheckBtn theme='dark' id={data.id} />;
+                                        case 'deletebtn': return <DeleteBtn theme='dark' id={data.id} />;
+                                        case 'editbtn': return <EditBtn theme='dark' id={data.id} />;
+                                        case 'savebtn': return <SaveBtn theme='dark' id={data.id} />;
                                             default: return <></>;
                                         }
                                     })

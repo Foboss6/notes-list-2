@@ -1,17 +1,11 @@
 
 import './App.css';
 
-// import { connect } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Table from '../components/table/Table';
 import Button from '../components/buttons/Button';
 
-// const mapStateToProps = (state) => {
-//   return state;
-// }
-
 const App = (state) => {
-  // const store = createStore(btnClickDelete, initialState);
   const notes = useSelector(state => state.notes);
   const archivedNotes = useSelector(state => state.archivedNotes);
   const summary = useSelector(state => state.summary);

@@ -3,7 +3,7 @@ import add from './icons/+.svg';
 import { useDispatch } from 'react-redux';
 import { btnClickAdd } from '../../actions';
 
-const AddBtn = ({theme, onClick, id}) => {
+const AddBtn = ({theme, onClick, id, key}) => {
     const dispatch = useDispatch();
     const btnID = `btn-ad${id ? 'd-'+id : 'd'}`;
     
@@ -14,7 +14,7 @@ const AddBtn = ({theme, onClick, id}) => {
     return (
         <div 
             className={`btn ${theme === 'dark' ? 'btn-dark' : 'btn-light'}`}
-            onClick={onClick ? onClick : handlerBtnClick}   
+            onClick={onClick ? onClick : handlerBtnClick}  
         >
             <img 
                 id={btnID}

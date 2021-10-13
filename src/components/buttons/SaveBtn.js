@@ -3,7 +3,7 @@ import save from './icons/save.svg';
 import { useDispatch } from 'react-redux';
 import { btnClickSave } from '../../actions';
 
-const SaveBtn = ({theme, onClick, id}) => {
+const SaveBtn = ({theme, onClick, id, key}) => {
     const dispatch = useDispatch();
     const btnID = `btn-sav${id ? 'e-'+id : 'e'}`;
     

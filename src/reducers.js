@@ -202,7 +202,6 @@ export const reducer = (state=initialState, action) => {
                             value: state.notes[keys[2]].content,
                         },
                         created: state.notes[keys[2]].created,
-                        // dates: state.notes[keys[2]].dates,
                     },
                     workingWithNotes: true,
                 }
@@ -217,6 +216,7 @@ export const reducer = (state=initialState, action) => {
         case BTN_CLICK_SAVE :
             let newNote = {};
             let updatedNotes = {};
+            let updatedSummary = {...state.summary};
             const date = new Date();
             const dates = state.inputs['input-new-content'] ? [...state.inputs['input-new-content'].value.matchAll(/\d{1,2}\/\d{1,2}\/\d{2,4}/g)] : [];
 
@@ -245,6 +245,16 @@ export const reducer = (state=initialState, action) => {
                     dates: dates.length>1 ? dates.reduce((prev, cur) => prev + ", " + cur) : dates,
                 };
 
+                updatedSummary = {
+                    ...state.summary,
+                    [newNote.cathegory]: {
+                        id: newNote.cathegory,
+                        cathegory: newNote.cathegory,
+                        active: state.summary[newNote.cathegory].active+1,
+                        archived: state.summary[newNote.cathegory].archived,
+                    }
+                };
+
             } else if(action.payload.includes('edit')) {
                 const editedDates = [...state.inputs['input-edit-content'].value.matchAll(/\d{1,2}\/\d{1,2}\/\d{2,4}/g)];
                 newNote = {
@@ -256,6 +266,25 @@ export const reducer = (state=initialState, action) => {
                     dates: editedDates.length>1 ? editedDates.reduce((prev, cur) => prev + ", " + cur) : editedDates,
                 };
 
+                if(state.inputs['select-new-cathegory'].value !== state.notes[action.payload.split('-')[2]].cathegory.props.value) {
+                    let edittedItemId = action.payload.split('-')[2];
+                    updatedSummary = {
+                        ...state.summary,
+                        [newNote.cathegory]: {
+                            id: newNote.cathegory,
+                            cathegory: newNote.cathegory,
+                            active: state.summary[newNote.cathegory].active+1,
+                            archived: state.summary[newNote.cathegory].archived,
+                        },
+                        [state.notes[edittedItemId].cathegory.props.value]: {
+                            id: state.notes[edittedItemId].cathegory.props.value,
+                            cathegory: state.notes[edittedItemId].cathegory.props.value,
+                            active: state.summary[state.notes[edittedItemId].cathegory.props.value].active-1,
+                            archived: state.summary[state.notes[edittedItemId].cathegory.props.value].archived,
+                        }
+
+                    }
+                }
             }
             
             updatedNotes = {
@@ -269,15 +298,7 @@ export const reducer = (state=initialState, action) => {
                 ...state,
                 btnClickSave: action.payload,
                 notes: updatedNotes,
-                summary: {
-                    ...state.summary,
-                    [newNote.cathegory]: {
-                        id: newNote.cathegory,
-                        cathegory: newNote.cathegory,
-                        active: state.summary[newNote.cathegory].active+1,
-                        archived: state.summary[newNote.cathegory].archived,
-                    }
-                },
+                summary: updatedSummary,
                 inputs: defaultInputs,
                 workingWithNotes: false,
             }

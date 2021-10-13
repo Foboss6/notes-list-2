@@ -5,6 +5,7 @@ const Select = ({id, value}) => {
     const dispatch = useDispatch();
     const elID = id ? `select-${id}` : 'select-'+Math.round(Math.random()*100);
     let selectedItem = value ? value : 'Task';
+    console.log(selectedItem)
     
     const handleSelectChange = (event) => {
         selectedItem = event.target.value;

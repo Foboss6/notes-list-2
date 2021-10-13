@@ -3,7 +3,7 @@ import trash from './icons/trash.svg';
 import { useDispatch } from 'react-redux';
 import { btnClickDelete } from '../../actions';
 
-const DeleteBtn = ({theme, onClick, id}) => {
+const DeleteBtn = ({theme, onClick, id, key}) => {
     const dispatch = useDispatch();
     const btnID = `btn-delet${id ? 'e-'+id : 'e'}`;
     

@@ -3,7 +3,7 @@ import pencil from './icons/pencil.svg';
 import { useDispatch } from 'react-redux';
 import { btnClickEdit } from '../../actions';
 
-const EditBtn = ({theme, onClick, id}) => {
+const EditBtn = ({theme, onClick, id, key}) => {
     const dispatch = useDispatch();
     const btnID = `btn-edi${id ? 't-'+id : 't'}`;
     

@@ -3,7 +3,7 @@ import check from './icons/check.svg';
 import { useDispatch } from 'react-redux';
 import { btnClickCheck } from '../../actions';
 
-const CheckBtn = ({theme, onClick, id}) => {
+const CheckBtn = ({theme, onClick, id, key}) => {
     const dispatch = useDispatch();
     const btnID = `btn-chec${id ? 'k-'+id : 'k'}`;
     
