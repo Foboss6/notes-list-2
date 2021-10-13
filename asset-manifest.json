@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/Foboss6/radency-ht2/static/css/main.864f8f9b.chunk.css",
+    "main.js": "/Foboss6/radency-ht2/static/js/main.4fe520b9.chunk.js",
+    "main.js.map": "/Foboss6/radency-ht2/static/js/main.4fe520b9.chunk.js.map",
+    "runtime-main.js": "/Foboss6/radency-ht2/static/js/runtime-main.ffb02933.js",
+    "runtime-main.js.map": "/Foboss6/radency-ht2/static/js/runtime-main.ffb02933.js.map",
+    "static/js/2.7be2b7ab.chunk.js": "/Foboss6/radency-ht2/static/js/2.7be2b7ab.chunk.js",
+    "static/js/2.7be2b7ab.chunk.js.map": "/Foboss6/radency-ht2/static/js/2.7be2b7ab.chunk.js.map",
+    "index.html": "/Foboss6/radency-ht2/index.html",
+    "static/css/main.864f8f9b.chunk.css.map": "/Foboss6/radency-ht2/static/css/main.864f8f9b.chunk.css.map",
+    "static/js/2.7be2b7ab.chunk.js.LICENSE.txt": "/Foboss6/radency-ht2/static/js/2.7be2b7ab.chunk.js.LICENSE.txt",
+    "static/media/+.deb015b6.svg": "/Foboss6/radency-ht2/static/media/+.deb015b6.svg",
+    "static/media/cancel.160da166.svg": "/Foboss6/radency-ht2/static/media/cancel.160da166.svg",
+    "static/media/check.739569de.svg": "/Foboss6/radency-ht2/static/media/check.739569de.svg",
+    "static/media/doublecheck.89103672.svg": "/Foboss6/radency-ht2/static/media/doublecheck.89103672.svg",
+    "static/media/pencil.2d853e21.svg": "/Foboss6/radency-ht2/static/media/pencil.2d853e21.svg",
+    "static/media/save.b405c998.svg": "/Foboss6/radency-ht2/static/media/save.b405c998.svg",
+    "static/media/trash.3e31d61a.svg": "/Foboss6/radency-ht2/static/media/trash.3e31d61a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ffb02933.js",
+    "static/js/2.7be2b7ab.chunk.js",
+    "static/css/main.864f8f9b.chunk.css",
+    "static/js/main.4fe520b9.chunk.js"
+  ]
+}
