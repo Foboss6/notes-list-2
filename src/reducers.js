@@ -99,7 +99,7 @@ export const reducer = (state=initialState, action) => {
 
                 const date = new Date();
                 const dates = state.newNote.content ? [...state.newNote.content.matchAll(/\d{1,2}\/\d{1,2}\/\d{2,4}/g)] : [];
-
+                
                 newNote = {
                     id: Date.now(),
                     category: state.newNote.category,
@@ -108,14 +108,16 @@ export const reducer = (state=initialState, action) => {
                     created: `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`,
                     dates: dates.length>1 ? dates.reduce((prev, cur) => prev + ", " + cur) : dates,
                 };
-
+                
+                const summaryID = newNote.category;
+                
                 updatedSummary = {
                     ...state.summary,
-                    [newNote.category]: {
-                        id: newNote.category,
-                        category: newNote.category,
-                        active: state.summary[newNote.category].active+1,
-                        archived: state.summary[newNote.category].archived,
+                    [summaryID]: {
+                        id: summaryID,
+                        category: summaryID,
+                        active: state.summary[summaryID].active+1,
+                        archived: state.summary[summaryID].archived,
                     }
                 };
         // save editted note
@@ -211,13 +213,14 @@ export const reducer = (state=initialState, action) => {
             let newArchivedNotes = {};
             let summary = {...state.summary};
             // archive one note with id=key
-            if(key) {                
+            if(key) {             
+                const arcCategory = newNotes[key].category;   
                 newArchivedNotes = {
                     ...state.archivedNotes, 
                     [newNotes[key].id]: { ...newNotes[key] },
                 };
-                summary[newNotes[key].category].active--;
-                summary[newNotes[key].category].archived++;
+                summary[arcCategory].active--;
+                summary[arcCategory].archived++;
                 delete newNotes[key];
             } else { // archive all notes
                 Object.values(newNotes).forEach((el) => {
@@ -241,14 +244,16 @@ export const reducer = (state=initialState, action) => {
             let updatedSummary = {...state.summary};
             
             if(key) { // delete one note
+                const delCategory = newNotes[key].category;
+                
                 newNotes =  {...state.notes};
                 updatedSummary = {
                     ...state.summary,
                     [newNotes[key].category]: {
                         id: newNotes[key].category,
                         category: newNotes[key].category,
-                        active: state.summary[newNotes[key].category].active-1,
-                        archived: state.summary[newNotes[key].category].archived,
+                        active: state.summary[delCategory].active-1,
+                        archived: state.summary[delCategory].archived,
                     }
                 }
                 delete newNotes[key];
