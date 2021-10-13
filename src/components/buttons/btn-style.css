@@ -1,0 +1,27 @@
+.btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    margin: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-light {
+    background-color: rgb(199, 194, 194);
+}
+
+.btn-dark {
+    background-color: grey;
+}
+
+.btn:hover {
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+.btn-img {
+    width: 18px;
+    height: 18px;
+}
