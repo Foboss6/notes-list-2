@@ -27,12 +27,12 @@ const App = (state) => {
       <section>
         <Table 
           id='notes'
-          head={{0: 'Cathegory', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates', 5: 'AddBtn CheckAllBtn DeleteBtn'}} 
+          head={{0: 'category', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates', 5: 'AddBtn CheckAllBtn DeleteBtn'}} 
           body={notesForTable}
         />
         <Table 
           id='summary'
-          head={{0: 'Cathegory', 1: 'Active', 2: 'Archived'}} 
+          head={{0: 'category', 1: 'Active', 2: 'Archived'}} 
           body={summary}
         />
         <Button id='btn-show'>{showArhivedNotes ? 'Hide Archive' : 'Show Archive'}</Button>
@@ -40,7 +40,7 @@ const App = (state) => {
           showArhivedNotes
           ?
             <Table 
-            head={{0: 'Cathegory', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates'}}
+            head={{0: 'category', 1: 'Name', 2: 'Content', 3: 'Created', 4: 'Dates'}}
             body={archivedNotes}
             />
           :

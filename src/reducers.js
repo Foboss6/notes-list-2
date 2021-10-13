@@ -33,8 +33,8 @@ export const reducer = (state=initialState, action) => {
                     ...state.notes,
                     new: {
                         id: 'new', 
-                        cathegory: 
-                            <Select id='new-cathegory'/>,
+                        category: 
+                            <Select id='new-category'/>,
                         name: 
                             <Input id='new-name' placeholder='name' />,
                         content: 
@@ -44,7 +44,7 @@ export const reducer = (state=initialState, action) => {
                     }
                 },
                 newNote: {
-                    cathegory: 'Task',
+                    category: 'Task',
                 },
                 workingWithNotes: true,
             }
@@ -59,8 +59,8 @@ export const reducer = (state=initialState, action) => {
                         ...state.notes,
                         [key]: {
                             id: key+'-edit',
-                            cathegory: 
-                                <Select id='edit-cathegory' value={state.notes[key].cathegory}/>,
+                            category: 
+                                <Select id='edit-category' value={state.notes[key].category}/>,
                             name: 
                                 <Input id='edit-name' placeholder='name' value={state.notes[key].name} />,
                             content: 
@@ -102,7 +102,7 @@ export const reducer = (state=initialState, action) => {
 
                 newNote = {
                     id: Date.now(),
-                    cathegory: state.newNote.cathegory,
+                    category: state.newNote.category,
                     name: state.newNote.name ? state.newNote.name : '',
                     content: state.newNote.content,
                     created: `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`,
@@ -111,11 +111,11 @@ export const reducer = (state=initialState, action) => {
 
                 updatedSummary = {
                     ...state.summary,
-                    [newNote.cathegory]: {
-                        id: newNote.cathegory,
-                        cathegory: newNote.cathegory,
-                        active: state.summary[newNote.cathegory].active+1,
-                        archived: state.summary[newNote.cathegory].archived,
+                    [newNote.category]: {
+                        id: newNote.category,
+                        category: newNote.category,
+                        active: state.summary[newNote.category].active+1,
+                        archived: state.summary[newNote.category].archived,
                     }
                 };
         // save editted note
@@ -138,29 +138,29 @@ export const reducer = (state=initialState, action) => {
                 const dates = [...state.editNote.content.matchAll(/\d{1,2}\/\d{1,2}\/\d{2,4}/g)];
                 newNote = {
                     id: editetNoteID,
-                    cathegory: state.editNote.cathegory,
+                    category: state.editNote.category,
                     name: state.editNote.name ? state.editNote.name : '',
                     content: state.editNote.content,
                     created: state.editNote.created,
                     dates: dates.length>1 ? dates.reduce((prev, cur) => prev + ", " + cur) : dates,
                 };
 
-                // if cathegory of a note was changed, recount a summary
-                const prevNotesCathegory = state.notes[editetNoteID].cathegory.props.value;
-                if(state.editNote.cathegory !== prevNotesCathegory) {
+                // if category of a note was changed, recount a summary
+                const prevNotescategory = state.notes[editetNoteID].category.props.value;
+                if(state.editNote.category !== prevNotescategory) {
                     updatedSummary = {
                         ...state.summary,
-                        [newNote.cathegory]: {
-                            id: newNote.cathegory,
-                            cathegory: newNote.cathegory,
-                            active: state.summary[newNote.cathegory].active+1,
-                            archived: state.summary[newNote.cathegory].archived,
+                        [newNote.category]: {
+                            id: newNote.category,
+                            category: newNote.category,
+                            active: state.summary[newNote.category].active+1,
+                            archived: state.summary[newNote.category].archived,
                         },
-                        [prevNotesCathegory]: {
-                            id: prevNotesCathegory,
-                            cathegory: prevNotesCathegory,
-                            active: state.summary[prevNotesCathegory].active-1,
-                            archived: state.summary[prevNotesCathegory].archived,
+                        [prevNotescategory]: {
+                            id: prevNotescategory,
+                            category: prevNotescategory,
+                            active: state.summary[prevNotescategory].active-1,
+                            archived: state.summary[prevNotescategory].archived,
                         }
                     };
                 }
@@ -216,13 +216,13 @@ export const reducer = (state=initialState, action) => {
                     ...state.archivedNotes, 
                     [newNotes[key].id]: { ...newNotes[key] },
                 };
-                summary[newNotes[key].cathegory].active--;
-                summary[newNotes[key].cathegory].archived++;
+                summary[newNotes[key].category].active--;
+                summary[newNotes[key].category].archived++;
                 delete newNotes[key];
             } else { // archive all notes
                 Object.values(newNotes).forEach((el) => {
-                    summary[el.cathegory].active--;
-                    summary[el.cathegory].archived++;
+                    summary[el.category].active--;
+                    summary[el.category].archived++;
                 });
                 newArchivedNotes = {...state.archivedNotes, ...state.notes};
                 newNotes = {};
@@ -244,11 +244,11 @@ export const reducer = (state=initialState, action) => {
                 newNotes =  {...state.notes};
                 updatedSummary = {
                     ...state.summary,
-                    [newNotes[key].cathegory]: {
-                        id: newNotes[key].cathegory,
-                        cathegory: newNotes[key].cathegory,
-                        active: state.summary[newNotes[key].cathegory].active-1,
-                        archived: state.summary[newNotes[key].cathegory].archived,
+                    [newNotes[key].category]: {
+                        id: newNotes[key].category,
+                        category: newNotes[key].category,
+                        active: state.summary[newNotes[key].category].active-1,
+                        archived: state.summary[newNotes[key].category].archived,
                     }
                 }
                 delete newNotes[key];
@@ -257,19 +257,19 @@ export const reducer = (state=initialState, action) => {
                 updatedSummary = { //delete all notes
                     "Task": {
                         id: "Task",
-                        cathegory: "Task",
+                        category: "Task",
                         active: 0,
                         archived: state.summary['Task'].archived,
                     },
                     "Idea": {
                         id: "Idea",
-                        cathegory: "Idea",
+                        category: "Idea",
                         active: 0,
                         archived: state.summary['Idea'].archived,
                     },
                     "Random Thought": {
                         id: "Random Thought",
-                        cathegory: "Random Thought",
+                        category: "Random Thought",
                         active: 0,
                         archived: state.summary['Random Thought'].archived,
                     },

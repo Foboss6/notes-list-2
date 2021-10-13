@@ -2,7 +2,7 @@ export const initialState = {
     notes: {
         111: {
             id: 111,
-            cathegory: "Task",
+            category: "Task",
             name: "shopping",
             content: "buy: pasta, oil, bread. 11/10/2021",
             created: "07/10/2021",
@@ -10,7 +10,7 @@ export const initialState = {
         },
         222: {
             id: 222,
-            cathegory: "Random Thought",
+            category: "Random Thought",
             name: "For me",
             content: "Don't warry, be happy!",
             created: "08/10/2021",
@@ -18,7 +18,7 @@ export const initialState = {
         },
         333: {
             id: 333,
-            cathegory: "Idea",
+            category: "Idea",
             name: "Project",
             content: "use CSS Grid in my case",
             created: "06/10/2021",
@@ -26,7 +26,7 @@ export const initialState = {
         },
         444: {
             id: 444,
-            cathegory: "Random Thought",
+            category: "Random Thought",
             name: "",
             content: "If you get 'scared half to death' twice, do you die?",
             created: "07/10/2021",
@@ -34,7 +34,7 @@ export const initialState = {
         },
         555: {
             id: 555,
-            cathegory: "Random Thought",
+            category: "Random Thought",
             name: "",
             content: "Who decided to put \"s\" into lisp?!",
             created: "11/10/2021",
@@ -42,7 +42,7 @@ export const initialState = {
         },
         666: {
             id: 666,
-            cathegory: "Random Thought",
+            category: "Random Thought",
             name: "",
             content: "In order to sleep we first pretend to sleep",
             created: "03/10/2021",
@@ -50,7 +50,7 @@ export const initialState = {
         },
         777: {
             id: 777,
-            cathegory: "Task",
+            category: "Task",
             name: "Cleaning",
             content: "Clean whole the flat. Start on 10/10/2021",
             created: "09/10/2021",
@@ -60,7 +60,7 @@ export const initialState = {
     archivedNotes: {
         11112: {
             id: 11112,
-            cathegory: "Task",
+            category: "Task",
             name: "shopping",
             content: "buy: pasta, oil, bread. 11/10/2021",
             created: "07/10/2021",
@@ -68,7 +68,7 @@ export const initialState = {
         },
         22212: {
             id: 22212,
-            cathegory: "Random Thought",
+            category: "Random Thought",
             name: "For me",
             content: "Don't warry, be happy!",
             created: "08/10/2021",
@@ -78,19 +78,19 @@ export const initialState = {
     summary: {
         "Task": {
             id: "Task",
-            cathegory: "Task",
+            category: "Task",
             active: 2,
             archived: 1,
         },
         "Idea": {
             id: "Idea",
-            cathegory: "Idea",
+            category: "Idea",
             active: 1,
             archived: 0,
         },
         "Random Thought": {
             id: "Random Thought",
-            cathegory: "Random Thought",
+            category: "Random Thought",
             active: 4,
             archived: 1,
         },
