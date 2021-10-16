@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/radency-ht2/static/css/main.8c52dabc.chunk.css",
-    "main.js": "/radency-ht2/static/js/main.7c9f8b08.chunk.js",
-    "main.js.map": "/radency-ht2/static/js/main.7c9f8b08.chunk.js.map",
+    "main.js": "/radency-ht2/static/js/main.116b0749.chunk.js",
+    "main.js.map": "/radency-ht2/static/js/main.116b0749.chunk.js.map",
     "runtime-main.js": "/radency-ht2/static/js/runtime-main.2f6e890c.js",
     "runtime-main.js.map": "/radency-ht2/static/js/runtime-main.2f6e890c.js.map",
     "static/js/2.7be2b7ab.chunk.js": "/radency-ht2/static/js/2.7be2b7ab.chunk.js",
@@ -22,6 +22,6 @@
     "static/js/runtime-main.2f6e890c.js",
     "static/js/2.7be2b7ab.chunk.js",
     "static/css/main.8c52dabc.chunk.css",
-    "static/js/main.7c9f8b08.chunk.js"
+    "static/js/main.116b0749.chunk.js"
   ]
 }
